@@ -18,6 +18,7 @@ app.get('/:text', function (req, res) {
 	gtts.save('warning.mp3', function (err, result) {
 		console.log(`Saved warning=${text} to mp3!`);
 
+		// cvlc
 		exec('afplay warning.mp3');
 	});
 
