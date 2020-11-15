@@ -3,17 +3,31 @@ const { exec } = require('child_process');
 const app = express();
 const Gtts = require('gtts');
 
+
 app.get('/:text', function (req, res) {
-	const gtts = new Gtts(req.params.text, 'en');
+
+	var text=req.params.text
+
+	text=text.replace("!"," ")
+
+	if(text=="favicon.ico"){
+		res.send("fuck u")
+		return
+	}
+
+
+	const gtts = new Gtts(text, 'en');
+
 
 	gtts.save('warning.mp3', function (err, result) {
-		console.log(`Saved warning=${req.params.text} to mp3!`);
+		console.log(`Saved warning=${text} to mp3!`);
 
-		exec('cvlc warning.mp3');
+		exec('afplay warning.mp3');
 	});
 
 	res.send('Playing warning.');
 });
+
 
 app.listen(3000, function () {
 	console.log('Program started!');
